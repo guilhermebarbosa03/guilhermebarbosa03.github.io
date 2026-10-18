@@ -126,7 +126,7 @@ export const certificates: { issuer: string; title: Localized; file: string }[] 
       pt: "Databases and SQL for Data Science with Python",
       en: "Databases and SQL for Data Science with Python",
     },
-    file: "db.pdf",
+    file: "ibm-databases-sql-data-science-python.pdf",
   },
   {
     issuer: "UFBA",
@@ -134,12 +134,12 @@ export const certificates: { issuer: string; title: Localized; file: string }[] 
       pt: "Deep Learning Aplicado a Imagens com Python",
       en: "Deep Learning Applied to Images with Python",
     },
-    file: "mlimage.pdf",
+    file: "ufba-deep-learning-imagens-python.pdf",
   },
   {
     issuer: "UFBA",
     title: { pt: "Análise de Séries Temporais no Python", en: "Time Series Analysis in Python" },
-    file: "timeseries.pdf",
+    file: "ufba-series-temporais-python.pdf",
   },
 ];
 
