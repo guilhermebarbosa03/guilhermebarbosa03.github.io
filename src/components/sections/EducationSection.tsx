@@ -46,7 +46,14 @@ export function EducationSection({ education, certificates, ui }: EducationSecti
             {certificates.map((certificate) => (
               <li key={`${certificate.issuer}-${certificate.title}`} className={styles.certificate}>
                 <span className={styles.issuer}>{certificate.issuer}</span>
-                <span>{certificate.title}</span>
+                <a
+                  href={certificate.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.link}
+                >
+                  {certificate.title}
+                </a>
               </li>
             ))}
           </ul>

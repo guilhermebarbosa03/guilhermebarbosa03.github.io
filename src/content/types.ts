@@ -88,6 +88,8 @@ export interface Education {
 export interface Certificate {
   issuer: string;
   title: string;
+  /** Path of the PDF under the site root */
+  href: string;
 }
 
 export type ContactKind = "email" | "github" | "linkedin" | "location";

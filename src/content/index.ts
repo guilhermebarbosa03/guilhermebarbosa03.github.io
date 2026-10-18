@@ -47,7 +47,10 @@ export function getContent(locale: Locale): PortfolioContent {
       stats: [
         { value: yearsOfExperience, label: statLabels.experience[locale] },
         { value: String(projects.length), label: statLabels.projects[locale] },
-        { value: education.expectedEnd.slice(0, 4), label: statLabels.graduation[locale] },
+        {
+          value: education.expectedEnd.slice(0, 4),
+          label: statLabels.graduation[locale],
+        },
       ],
       contacts: contacts.map((c) => ({
         kind: c.kind,
@@ -68,7 +71,10 @@ export function getContent(locale: Locale): PortfolioContent {
     skillCategories: skillCategories.map((category) => ({
       id: category.id,
       title: category.title[locale],
-      skills: category.skills.map((id) => ({ id, label: skillLabel(id, locale) })),
+      skills: category.skills.map((id) => ({
+        id,
+        label: skillLabel(id, locale),
+      })),
     })),
     experience: experience.map((job) => ({
       id: job.id,
@@ -77,13 +83,21 @@ export function getContent(locale: Locale): PortfolioContent {
       location: job.location[locale],
       start: job.start,
       end: job.end,
-      period: formatPeriod(job.start, job.end, locale, strings.experience.current),
+      period: formatPeriod(
+        job.start,
+        job.end,
+        locale,
+        strings.experience.current,
+      ),
       isCurrent: job.end === null,
       bullets: job.bullets[locale],
       skills: skillRefs(job.skills, locale),
       projects: job.projectIds.map((id) => {
         const title = projectTitles.get(id);
-        if (!title) throw new Error(`Experience "${job.id}" links to unknown project "${id}"`);
+        if (!title)
+          throw new Error(
+            `Experience "${job.id}" links to unknown project "${id}"`,
+          );
         return { id, title: title[locale] };
       }),
     })),
@@ -98,7 +112,11 @@ export function getContent(locale: Locale): PortfolioContent {
       }),
       coursework: education.coursework[locale],
     },
-    certificates: certificates.map((c) => ({ issuer: c.issuer, title: c.title[locale] })),
+    certificates: certificates.map((c) => ({
+      issuer: c.issuer,
+      title: c.title[locale],
+      href: `/certificates/${c.file}`,
+    })),
   };
 }
 
