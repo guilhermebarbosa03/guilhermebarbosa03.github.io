@@ -1,0 +1,51 @@
+/* The panel stands on the ground strip, so the gap below it is the "air" above the grass */
+.panel {
+  margin-bottom: var(--space-6);
+}
+
+.text {
+  max-width: 64ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-5) 0 0;
+}
+
+.actions li {
+  display: flex;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Big touch targets. Two classes to beat PixelButton's nowrap and sizing; long values may wrap. */
+.actions .button {
+  min-height: 52px;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+@media (max-width: 599px) {
+  .actions li {
+    flex: 1 1 100%;
+  }
+
+  .actions .button {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  font-size: var(--text-sm);
+}
+
+/* Thin bar under the ground, like the bottom line of a game screen */

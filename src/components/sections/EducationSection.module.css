@@ -1,0 +1,75 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.title {
+  font-size: var(--text-lg);
+}
+
+.school {
+  margin-top: var(--space-1);
+  font-weight: 600;
+}
+
+.dates {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-1);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.subtitle {
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.certificates {
+  margin: var(--space-3) 0 0;
+}
+
+.certificate {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  border-top: 2px solid var(--color-paper-dim);
+  font-size: var(--text-sm);
+}
+
+.certificate:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* Issuer as a small ink label, like a cartridge tag */
+.issuer {
+  flex: none;
+  min-width: 56px;
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-ink);
+  color: var(--color-on-ink);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}

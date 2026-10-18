@@ -1,0 +1,334 @@
+/*
+ * Backdrop layers, all flat color. SceneDriver switches data-phase on the root (day, dusk-1..3,
+ * night, dawn-1..3) and each color glides to the next phase's value over one phase step, so dusk
+ * and dawn blend continuously. Outside those 40s of each cycle nothing repaints.
+ * Clouds, sun and moon are moved by Web Animations from SceneDriver (data-driven on the root).
+ * Without the driver (reduced motion) the root stays on the day palette and transitions are off.
+ */
+
+.scene {
+  /* Day palette, the default */
+  --scene-sky: var(--color-sky);
+  --scene-cloud: var(--color-cloud);
+  --scene-cloud-shade: var(--color-cloud-shade);
+  --scene-hill-far: var(--color-hill-far);
+  --scene-hill-far-dark: #4f9d4f;
+  --scene-hill-near: var(--color-hill-near);
+  --scene-hill-near-dark: #327a3a;
+  --scene-trunk: #8a4a26;
+  --scene-leaf: #6bbf4a;
+  --scene-leaf-dark: #3c8f3a;
+
+  /* Length of one dusk/dawn step (SceneDriver STEP_S) */
+  --phase-blend: 6.667s;
+
+  /* Same in every phase */
+  --scene-sun: #ffd23f;
+  --scene-sun-edge: #f58a1f;
+  --scene-moon: #f1eecb;
+  --scene-star: #fff8e8;
+
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  contain: layout paint;
+  background: var(--scene-sky);
+  transition: background-color var(--phase-blend) linear;
+}
+
+.scene svg {
+  max-width: none;
+}
+
+/* Dusk: warm flat tones fading into night */
+
+.scene[data-phase="dusk-1"] {
+  --scene-sky: #f0a878;
+  --scene-cloud: #ffe2cf;
+  --scene-cloud-shade: #f0bfa8;
+  --scene-hill-far: #6a9d52;
+  --scene-hill-far-dark: #5a8c47;
+  --scene-hill-near: #4b8040;
+  --scene-hill-near-dark: #3d6f37;
+  --scene-trunk: #7c4426;
+  --scene-leaf: #5fa84a;
+  --scene-leaf-dark: #357f38;
+}
+
+.scene[data-phase="dusk-2"] {
+  --scene-sky: #b9739b;
+  --scene-cloud: #e8b9cc;
+  --scene-cloud-shade: #c28fb0;
+  --scene-hill-far: #4f7f4f;
+  --scene-hill-far-dark: #436f45;
+  --scene-hill-near: #376a40;
+  --scene-hill-near-dark: #2d5937;
+  --scene-trunk: #664030;
+  --scene-leaf: #468a4a;
+  --scene-leaf-dark: #2d6a3c;
+}
+
+.scene[data-phase="dusk-3"] {
+  --scene-sky: #4b4585;
+  --scene-cloud: #8d82b8;
+  --scene-cloud-shade: #6c639c;
+  --scene-hill-far: #2f5a48;
+  --scene-hill-far-dark: #274c3d;
+  --scene-hill-near: #234a39;
+  --scene-hill-near-dark: #1c3d30;
+  --scene-trunk: #4f3a38;
+  --scene-leaf: #2f6a47;
+  --scene-leaf-dark: #215238;
+}
+
+/* Night: clouds and hills strongly dimmed but still readable */
+
+.scene[data-phase="night"] {
+  --scene-sky: #121a3c;
+  --scene-cloud: #3a4278;
+  --scene-cloud-shade: #2c3361;
+  --scene-hill-far: #1e4549;
+  --scene-hill-far-dark: #173a3c;
+  --scene-hill-near: #14302f;
+  --scene-hill-near-dark: #0f2726;
+  --scene-trunk: #3a2f3c;
+  --scene-leaf: #1d4a3f;
+  --scene-leaf-dark: #143a33;
+}
+
+/* Dawn: back from navy through lilac and peach to day */
+
+.scene[data-phase="dawn-1"] {
+  --scene-sky: #2c3466;
+  --scene-cloud: #4a5388;
+  --scene-cloud-shade: #38406e;
+  --scene-hill-far: #264a4d;
+  --scene-hill-far-dark: #1d3e41;
+  --scene-hill-near: #183a38;
+  --scene-hill-near-dark: #12302f;
+  --scene-trunk: #3d3040;
+  --scene-leaf: #21503f;
+  --scene-leaf-dark: #173f34;
+}
+
+.scene[data-phase="dawn-2"] {
+  --scene-sky: #8a6fa8;
+  --scene-cloud: #d4b6d6;
+  --scene-cloud-shade: #b093c0;
+  --scene-hill-far: #4a7a58;
+  --scene-hill-far-dark: #3e6a4c;
+  --scene-hill-near: #326347;
+  --scene-hill-near-dark: #28543b;
+  --scene-trunk: #5f4033;
+  --scene-leaf: #3f7e4a;
+  --scene-leaf-dark: #2c6540;
+}
+
+.scene[data-phase="dawn-3"] {
+  --scene-sky: #f2b392;
+  --scene-cloud: #ffe6d6;
+  --scene-cloud-shade: #f1c4b0;
+  --scene-hill-far: #5a9f56;
+  --scene-hill-far-dark: #4a8e4a;
+  --scene-hill-near: #3b8641;
+  --scene-hill-near-dark: #2f7336;
+  --scene-trunk: #7e4626;
+  --scene-leaf: #5fb04a;
+  --scene-leaf-dark: #388a3a;
+}
+
+/* Flat fills, blended between phases */
+
+.cloudBody,
+.cloudShade,
+.hillFar,
+.hillFarDark,
+.hillNear,
+.hillNearDark,
+.trunk,
+.leaf,
+.leafDark {
+  transition: fill var(--phase-blend) linear;
+}
+
+.cloudBody {
+  fill: var(--scene-cloud);
+}
+
+.cloudShade {
+  fill: var(--scene-cloud-shade);
+}
+
+.hillFar {
+  fill: var(--scene-hill-far);
+}
+
+.hillFarDark {
+  fill: var(--scene-hill-far-dark);
+}
+
+.hillNear {
+  fill: var(--scene-hill-near);
+}
+
+.hillNearDark {
+  fill: var(--scene-hill-near-dark);
+}
+
+.trunk {
+  fill: var(--scene-trunk);
+}
+
+.leaf {
+  fill: var(--scene-leaf);
+}
+
+.leafDark {
+  fill: var(--scene-leaf-dark);
+}
+
+.sunCore {
+  fill: var(--scene-sun);
+}
+
+.sunEdge {
+  fill: var(--scene-sun-edge);
+}
+
+.moonBody {
+  fill: var(--scene-moon);
+}
+
+/* Stars: only in dusk-3, night and dawn-1. `twinkle` stars blink when the driver flips data-twinkle. */
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  fill: var(--scene-star);
+  opacity: 0;
+  transition: opacity var(--phase-blend) linear;
+}
+
+.scene[data-phase="dusk-3"] .stars,
+.scene[data-phase="night"] .stars,
+.scene[data-phase="dawn-1"] .stars {
+  opacity: 1;
+}
+
+.scene[data-twinkle="1"] .starsTwinkle {
+  display: none;
+}
+
+/*
+ * Sun and moon: the driver animates their transform along the orbit. The transform
+ * here is the static daytime spot used when the driver does not run (reduced motion).
+ */
+
+.sun,
+.moon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.sun {
+  transform: translate(12vw, 14vh);
+}
+
+/* Static sun when nothing drives the scene; with the driver both bodies orbit and leave the screen in turn */
+.sun,
+.scene[data-driven] .moon {
+  display: block;
+}
+
+/* Clouds: start at their percent position; the driver offsets them with a transform */
+
+.cloud {
+  position: absolute;
+}
+
+/* Set for two frames when a hidden tab returns, so colors land on the current phase without blending */
+.scene[data-instant],
+.scene[data-instant] * {
+  transition: none !important;
+}
+
+/* Hills: tiles repeat horizontally; --unit is the pixel size of one tile cell */
+
+.hills {
+  --unit: 3px;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* 44 tile rows (TILE_ROWS in PixelScene.tsx), never taller than 30% of the viewport */
+  height: min(calc(var(--unit) * 44), 30vh);
+  overflow: hidden;
+}
+
+.hillsSvg {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: calc(var(--unit) * 44);
+}
+
+.scale4 {
+  display: none;
+}
+
+@media (min-width: 768px) and (min-height: 700px) {
+  .hills {
+    --unit: 4px;
+  }
+
+  .scale3 {
+    display: none;
+  }
+
+  .scale4 {
+    display: inline;
+  }
+}
+
+/* Trees: stand on the bottom edge; data-stage (0 hidden, 1 sprout ... 6 full) picks the drawn stage */
+
+.treeDefs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.tree {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+.stage {
+  display: none;
+}
+
+.tree[data-stage="1"] .stage1,
+.tree[data-stage="2"] .stage2,
+.tree[data-stage="3"] .stage3,
+.tree[data-stage="4"] .stage4,
+.tree[data-stage="5"] .stage5,
+.tree[data-stage="6"] .stage6 {
+  display: inline;
+}
+
+@media (max-width: 767px) {
+  .cloudExtra,
+  .treeExtra {
+    display: none;
+  }
+}

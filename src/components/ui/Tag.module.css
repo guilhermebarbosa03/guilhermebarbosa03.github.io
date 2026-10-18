@@ -1,0 +1,23 @@
+.tag {
+  display: inline-flex;
+  align-items: stretch;
+  border: 2px solid var(--color-ink);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.tag > span:first-child {
+  padding: var(--space-1) var(--space-2);
+}
+
+.md {
+  font-size: var(--text-sm);
+}
+
+.sm {
+  font-size: var(--text-xs);
+}

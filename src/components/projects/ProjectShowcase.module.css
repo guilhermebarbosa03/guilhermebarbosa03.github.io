@@ -1,0 +1,6 @@
+/* From 768px the card is pushed in by the "<" arrow column (44px button + gap); line the title up with it */
+@media (min-width: 768px) {
+  .heading {
+    padding-left: calc(44px + var(--space-3));
+  }
+}

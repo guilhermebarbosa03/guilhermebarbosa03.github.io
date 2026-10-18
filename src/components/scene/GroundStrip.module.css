@@ -1,0 +1,40 @@
+.ground {
+  /* Extra flat shades used only by the ground */
+  --grass-dark: #3a8a3a;
+  --grass-light: #78d062;
+  --dirt-light: #c98150;
+
+  display: block;
+  width: 100%;
+  height: 72px;
+}
+
+@media (max-width: 767px) {
+  .ground {
+    height: 56px;
+  }
+}
+
+.dirt {
+  fill: var(--color-dirt);
+}
+
+.pebble {
+  fill: var(--color-dirt-dark);
+}
+
+.speck {
+  fill: var(--dirt-light);
+}
+
+.grass {
+  fill: var(--color-grass);
+}
+
+.fleck {
+  fill: var(--grass-light);
+}
+
+.edge {
+  fill: var(--grass-dark);
+}

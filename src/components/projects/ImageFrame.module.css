@@ -1,0 +1,11 @@
+/* Content-box sizing so the area inside the 3px border keeps the exact image ratio */
+.frame {
+  position: absolute;
+  inset: 0;
+  box-sizing: content-box;
+  width: min(100cqw - 6px, (100cqh - 6px) * var(--ratio));
+  height: min(100cqh - 6px, (100cqw - 6px) / var(--ratio));
+  margin: auto;
+  border: var(--border);
+  background: var(--color-paper);
+}

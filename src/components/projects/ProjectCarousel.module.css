@@ -1,0 +1,189 @@
+/*
+ * Carousel layout. Phones: card on top, then a row with "<", the status pill and ">".
+ * From 768px the arrows sit beside the card, centered on its image row.
+ * --media-h (image row) and --media-h-single (lone wide image) are read by ProjectSlide.module.css.
+ */
+
+.carousel {
+  --media-h: 120px;
+  --media-h-single: 160px;
+
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "card card card"
+    "prev status next";
+  align-items: center;
+  column-gap: var(--space-3);
+  row-gap: var(--space-4);
+}
+
+.card {
+  grid-area: card;
+  min-width: 0;
+  /* Vertical scrolling stays with the browser; horizontal moves reach the swipe handler */
+  touch-action: pan-y;
+}
+
+/* Two classes so this wins over Panel's own padding no matter the stylesheet order */
+.carousel .card {
+  padding: var(--space-3);
+}
+
+/* Every slide sits in the same cell; the tallest one sets the card height */
+.slides {
+  display: grid;
+}
+
+.prev {
+  grid-area: prev;
+}
+
+.next {
+  grid-area: next;
+}
+
+/* ---------- Status pill: dots, pause toggle and counter ---------- */
+
+.status {
+  grid-area: status;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 100%;
+  padding: var(--space-2);
+  border: var(--border);
+  background: var(--color-paper);
+}
+
+.dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+}
+
+/* 24px hit area around a 16px dot */
+.dot {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dot:focus-visible {
+  outline-offset: 0;
+}
+
+/*
+ * Pixel dot: a 4x4 grid of 4px "pixels" with the corners cut, drawn as two nested shapes
+ * (ink outline, then the fill), because clip-path would cut a real border away.
+ */
+.dotOutline {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  background: var(--color-ink);
+  clip-path: polygon(
+    4px 0,
+    12px 0,
+    12px 4px,
+    16px 4px,
+    16px 12px,
+    12px 12px,
+    12px 16px,
+    4px 16px,
+    4px 12px,
+    0 12px,
+    0 4px,
+    4px 4px
+  );
+}
+
+.dotFill {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  background: var(--color-paper);
+  clip-path: polygon(2px 0, 8px 0, 8px 2px, 10px 2px, 10px 8px, 8px 8px, 8px 10px, 2px 10px, 2px 8px, 0 8px, 0 2px, 2px 2px);
+}
+
+.dot:hover .dotFill,
+.dot:focus-visible .dotFill {
+  background: var(--color-accent-strong);
+}
+
+.dot[aria-current="true"] .dotFill {
+  background: var(--color-accent);
+}
+
+/* The active dot also carries a center pip, so it never depends on color alone */
+.dot[aria-current="true"] .dotFill::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: var(--color-ink);
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.counter {
+  min-width: 5ch;
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+/* ---------- Breakpoints ---------- */
+
+@media (min-width: 480px) {
+  .carousel {
+    --media-h: 160px;
+    --media-h-single: 200px;
+  }
+
+  .carousel .card {
+    padding: var(--space-4);
+  }
+}
+
+@media (min-width: 768px) {
+  .carousel {
+    grid-template-areas:
+      "prev card next"
+      ". status .";
+    align-items: start;
+  }
+
+  .prev,
+  .next {
+    /* border + padding + half the image row - half the 44px button */
+    margin-top: calc(var(--border-width) + var(--space-4) + var(--media-h) / 2 - 22px);
+  }
+
+  .status {
+    flex-direction: row;
+    gap: var(--space-5);
+    padding-inline: var(--space-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel {
+    --media-h: 200px;
+    --media-h-single: 240px;
+  }
+}

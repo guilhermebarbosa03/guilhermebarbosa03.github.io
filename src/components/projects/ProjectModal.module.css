@@ -1,0 +1,294 @@
+/*
+ * Zoom view. The <dialog> is a transparent holder with the project arrows on either side of .box,
+ * which carries the border and scrolls. Everything visible sits in a child, so a click whose target
+ * is the dialog element itself can only come from the empty area around it, i.e. the backdrop.
+ */
+
+.dialog {
+  width: min(1296px, calc(100vw - 16px));
+  max-width: calc(100vw - 16px);
+  max-height: calc(100vh - 16px);
+  max-height: calc(100dvh - 16px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-ink);
+  overflow: visible;
+}
+
+.dialog[open] {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.box {
+  min-width: 0;
+  max-height: calc(100vh - 16px);
+  max-height: calc(100dvh - 16px);
+  border: var(--border);
+  background: var(--color-paper);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+/* Narrow screens have no room beside the box, so the arrows drop to a row below it */
+@media (max-width: 767px) {
+  .dialog[open] {
+    grid-template-columns: 1fr 1fr;
+    max-height: none;
+  }
+
+  .box {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    max-height: calc(100dvh - 16px - 60px);
+  }
+
+  .projectPrev {
+    grid-row: 2;
+    justify-self: start;
+  }
+
+  .projectNext {
+    grid-row: 2;
+    grid-column: 2;
+    justify-self: end;
+  }
+}
+
+/* Ink at 85%. Custom properties do not reach ::backdrop in every browser, so the value is written out. */
+.dialog::backdrop {
+  background: rgba(28, 26, 46, 0.85);
+}
+
+.closeSlot {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  height: 0;
+}
+
+.close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+}
+
+.frame {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+  padding: var(--space-4);
+}
+
+/* ---------- Gallery ---------- */
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.viewer {
+  position: relative;
+  height: min(60vh, 480px);
+  height: min(60dvh, 480px);
+  /* Each layer's ImageFrame draws the border around the image itself */
+  container-type: size;
+}
+
+.image {
+  object-fit: contain;
+}
+
+/* Every mounted image fills the stage; only the active one is visible, so stepping through is instant */
+.layer {
+  position: absolute;
+  inset: 0;
+}
+
+.layer[data-active="false"] {
+  visibility: hidden;
+}
+
+.arrow {
+  position: absolute;
+  z-index: 1;
+  opacity: 0.4;
+  /* Half of the 36px small button; no transform because PixelButton uses transform for its press effect */
+  top: calc(50% - 18px);
+}
+
+.arrowPrev {
+  left: var(--space-2);
+}
+
+.arrowNext {
+  right: var(--space-2);
+}
+
+/* Quiet until the pointer is on the image (0.7), then fully opaque on the arrow itself. Changes are instant. */
+.viewer:hover .arrow {
+  opacity: 0.7;
+}
+
+.viewer .arrow:hover,
+.viewer .arrow:focus-visible {
+  opacity: 1;
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.counter {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* The 3px paper-dim frame turns accent for the active image and darker accent on hover */
+.thumb {
+  display: block;
+  width: 88px;
+  height: 64px;
+  padding: 3px;
+  border: var(--border);
+  background: var(--color-paper-dim);
+  cursor: pointer;
+}
+
+.thumb:hover {
+  background: var(--color-accent-strong);
+}
+
+.thumb[aria-current="true"] {
+  background: var(--color-accent);
+}
+
+.thumbImage {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--color-paper);
+}
+
+/* ---------- Details ---------- */
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--text-lg);
+  overflow-wrap: anywhere;
+}
+
+.context {
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.summary {
+  font-size: var(--text-md);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.blockTitle {
+  padding-bottom: var(--space-1);
+  border-bottom: var(--border);
+  font-size: var(--text-md);
+  text-transform: uppercase;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Square pixel bullet */
+.details li {
+  position: relative;
+  padding-left: var(--space-5);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
+.details li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.4em;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--color-ink);
+  background: var(--color-accent);
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ---------- Breakpoints ---------- */
+
+@media (min-width: 768px) {
+  .viewer {
+    height: min(70vh, 640px);
+    height: min(70dvh, 640px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .frame {
+    grid-template-columns: minmax(0, 62fr) minmax(0, 38fr);
+    padding: var(--space-5);
+  }
+
+  /* Keeps the first line of the title clear of the close button */
+  .title {
+    padding-right: var(--space-6);
+  }
+}
+
+/* Touch screens have no hover, so the arrows stay clearly visible */
+@media (hover: none) {
+  .viewer .arrow,
+  .viewer:hover .arrow {
+    opacity: 0.85;
+  }
+}

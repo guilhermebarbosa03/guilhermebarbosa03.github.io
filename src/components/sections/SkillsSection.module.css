@@ -1,0 +1,64 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  margin: 0;
+}
+
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.cell {
+  display: flex;
+  min-width: 0;
+}
+
+/* Two classes so they beat Panel's own padding and inner outline */
+.cell .card {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0;
+  outline: none;
+}
+
+/* Dark header strip, like the title bar of an inventory window */
+.strip {
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-ink);
+  color: var(--color-on-ink);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.title::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+}
+
+/* Two classes: the global ul[role="list"] reset would otherwise win and zero the padding */
+.card .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-4);
+}

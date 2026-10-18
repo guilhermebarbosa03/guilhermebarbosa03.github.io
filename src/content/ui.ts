@@ -1,0 +1,116 @@
+import type { Locale } from "@/i18n/config";
+import type { UiStrings } from "./types";
+
+/** Interface copy. Placeholders like {n} are filled with `fill()` from lib/format. */
+export const ui: Record<Locale, UiStrings> = {
+  pt: {
+    skipToContent: "Pular para o conteúdo",
+    navLabel: "Seções do portfólio",
+    nav: {
+      projects: "Projetos",
+      skills: "Habilidades",
+      experience: "Experiência",
+      education: "Formação",
+      contact: "Contato",
+    },
+    language: { label: "Idioma", switchTo: "Ver o site em inglês" },
+    intro: {
+      aboutTitle: "Sobre mim",
+      coreStackTitle: "Stack principal",
+      contactTitle: "Contato",
+    },
+    projects: {
+      heading: "Projetos",
+      previous: "Projeto anterior",
+      next: "Próximo projeto",
+      goTo: "Ir para o projeto {n}: {title}",
+      pause: "Pausar troca automática",
+      play: "Retomar troca automática",
+      zoomHint: "Clique para ampliar",
+      openDetails: "Ver detalhes do projeto {title}",
+      moreImages: "+{n}",
+      slideStatus: "Projeto {n} de {total}",
+      detailsTitle: "O que eu fiz",
+      skillsTitle: "Tecnologias",
+      close: "Fechar",
+      previousImage: "Imagem anterior",
+      nextImage: "Próxima imagem",
+      imageCounter: "Imagem {n} de {total}",
+    },
+    skills: {
+      heading: "Habilidades",
+    },
+    experience: {
+      heading: "Experiência",
+      current: "Atual",
+      seeProject: "Ver projeto",
+    },
+    education: {
+      heading: "Formação",
+      coursework: "Disciplinas relevantes",
+      certificates: "Certificados",
+      expected: "Conclusão prevista: {date}",
+    },
+    contact: {
+      heading: "Contato",
+      text: "Estou aberto a oportunidades de estágio e trabalho em desenvolvimento de software, IA, Machine Learning e dados. O e-mail é o jeito mais rápido de falar comigo.",
+      copyEmail: "Copiar e-mail",
+      emailCopied: "E-mail copiado!",
+    },
+  },
+  en: {
+    skipToContent: "Skip to content",
+    navLabel: "Portfolio sections",
+    nav: {
+      projects: "Projects",
+      skills: "Skills",
+      experience: "Experience",
+      education: "Education",
+      contact: "Contact",
+    },
+    language: { label: "Language", switchTo: "View the site in Portuguese" },
+    intro: {
+      aboutTitle: "About me",
+      coreStackTitle: "Core stack",
+      contactTitle: "Contact",
+    },
+    projects: {
+      heading: "Projects",
+      previous: "Previous project",
+      next: "Next project",
+      goTo: "Go to project {n}: {title}",
+      pause: "Pause autoplay",
+      play: "Resume autoplay",
+      zoomHint: "Click to enlarge",
+      openDetails: "Open details for {title}",
+      moreImages: "+{n}",
+      slideStatus: "Project {n} of {total}",
+      detailsTitle: "What I built",
+      skillsTitle: "Tech stack",
+      close: "Close",
+      previousImage: "Previous image",
+      nextImage: "Next image",
+      imageCounter: "Image {n} of {total}",
+    },
+    skills: {
+      heading: "Skills",
+    },
+    experience: {
+      heading: "Experience",
+      current: "Present",
+      seeProject: "See project",
+    },
+    education: {
+      heading: "Education",
+      coursework: "Relevant coursework",
+      certificates: "Certificates",
+      expected: "Expected graduation: {date}",
+    },
+    contact: {
+      heading: "Contact",
+      text: "I'm open to internships and roles in software development, AI, Machine Learning and data. Email is the fastest way to reach me.",
+      copyEmail: "Copy email",
+      emailCopied: "Email copied!",
+    },
+  },
+};

@@ -1,0 +1,11 @@
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  image-rendering: pixelated;
+  pointer-events: none;
+}

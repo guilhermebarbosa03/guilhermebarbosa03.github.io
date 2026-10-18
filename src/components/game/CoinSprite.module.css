@@ -1,0 +1,22 @@
+.sprite {
+  display: block;
+  max-width: none;
+  /* Lighter gold for the lit edge; same shade the background coins use */
+  --gold-light: #ffd978;
+}
+
+.ink {
+  fill: var(--color-ink);
+}
+
+.gold {
+  fill: var(--color-accent);
+}
+
+.light {
+  fill: var(--gold-light);
+}
+
+.dark {
+  fill: var(--color-accent-strong);
+}

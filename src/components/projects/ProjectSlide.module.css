@@ -1,0 +1,184 @@
+/*
+ * One project inside the card. All slides share one grid cell (see ProjectCarousel.module.css),
+ * so the card is as tall as the tallest slide and nothing moves when the project changes.
+ * --media-h and --media-h-single come from .carousel.
+ */
+
+.slide {
+  grid-area: 1 / 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.slide[data-active="false"] {
+  visibility: hidden;
+}
+
+/* ---------- Media row ---------- */
+
+.media {
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.media[data-cols="1"] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.media[data-cols="2"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cell {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--media-h);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  /* The bordered ImageFrame inside sizes itself to the image within this box */
+  container-type: size;
+  cursor: zoom-in;
+}
+
+.media[data-cols="1"] .cell {
+  height: var(--media-h-single);
+}
+
+.cell:hover .frame,
+.cell:focus-visible .frame {
+  border-color: var(--color-accent);
+}
+
+.frame {
+  overflow: hidden;
+}
+
+.image {
+  object-fit: contain;
+}
+
+.zoomBadge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.cell:hover .zoomBadge,
+.cell:focus-visible .zoomBadge {
+  background: var(--color-accent);
+}
+
+.moreBadge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  min-width: 32px;
+  height: 28px;
+  padding-inline: var(--space-2);
+  background: var(--color-accent);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* ---------- Text ---------- */
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: var(--border);
+}
+
+.title {
+  font-size: var(--text-md);
+  overflow-wrap: anywhere;
+}
+
+.context {
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+/* Looks like plain text; the padding grows into the card padding so the hover fill has some air around the words */
+.summaryButton {
+  display: block;
+  width: calc(100% + 2 * var(--space-2));
+  margin-inline: calc(-1 * var(--space-2));
+  padding: var(--space-2);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.summaryButton:hover,
+.summaryButton:focus-visible {
+  background: var(--color-paper-dim);
+}
+
+.summary {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
+.hint {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.skillsLabel {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.skillList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  margin: 0;
+}
+
+/* ---------- Breakpoints ---------- */
+
+@media (min-width: 480px) {
+  .title {
+    font-size: var(--text-lg);
+  }
+}

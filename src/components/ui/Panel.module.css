@@ -1,0 +1,26 @@
+.panel {
+  position: relative;
+  border: var(--border);
+  padding: var(--space-5);
+  /* Inner pixel line drawn with an outline */
+  outline: 2px solid transparent;
+  outline-offset: -8px;
+}
+
+.paper {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  outline-color: var(--color-paper-dim);
+}
+
+.ink {
+  background: var(--color-ink);
+  color: var(--color-on-ink);
+  outline-color: #34314d;
+}
+
+@media (max-width: 479px) {
+  .panel {
+    padding: var(--space-4);
+  }
+}

@@ -1,0 +1,77 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: var(--border);
+  /* Thicker bottom edge for a raised key look */
+  border-bottom-width: 6px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.md {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-md);
+}
+
+.sm {
+  min-height: 36px;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.iconOnly {
+  padding-inline: 0;
+  aspect-ratio: 1;
+}
+
+.primary {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.secondary {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.ghost {
+  background: var(--color-ink);
+  color: var(--color-on-ink);
+  border-color: var(--color-on-ink);
+}
+
+.primary:hover {
+  background: var(--color-ink);
+  color: var(--color-accent);
+}
+
+.secondary:hover {
+  background: var(--color-accent);
+}
+
+.ghost:hover {
+  background: var(--color-accent);
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+.button:active {
+  transform: translateY(2px);
+  border-bottom-width: 4px;
+  margin-bottom: 2px;
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

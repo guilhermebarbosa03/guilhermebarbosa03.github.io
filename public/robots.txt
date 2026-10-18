@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://guilhermebarbosa03.github.io/sitemap.xml
