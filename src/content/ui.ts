@@ -54,8 +54,6 @@ export const ui: Record<Locale, UiStrings> = {
     contact: {
       heading: "Contato",
       text: "Estou aberto a oportunidades de estágio e trabalho em desenvolvimento de software, IA, Machine Learning e dados. O e-mail é o jeito mais rápido de falar comigo.",
-      copyEmail: "Copiar e-mail",
-      emailCopied: "E-mail copiado!",
     },
   },
   en: {
@@ -109,8 +107,6 @@ export const ui: Record<Locale, UiStrings> = {
     contact: {
       heading: "Contact",
       text: "I'm open to internships and roles in software development, AI, Machine Learning and data. Email is the fastest way to reach me.",
-      copyEmail: "Copy email",
-      emailCopied: "Email copied!",
     },
   },
 };

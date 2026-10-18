@@ -63,6 +63,7 @@ export const contacts: { kind: ContactKind; label: Localized; value: Localized; 
     kind: "email",
     label: { pt: "E-mail", en: "Email" },
     value: { pt: person.email, en: person.email },
+    href: `mailto:${person.email}`,
   },
   {
     kind: "github",

@@ -1,4 +1,3 @@
-import { CopyEmail } from "@/components/ui/CopyEmail";
 import { Panel } from "@/components/ui/Panel";
 import { PixelIcon, type IconName } from "@/components/ui/PixelIcon";
 import { Tag } from "@/components/ui/Tag";
@@ -63,14 +62,7 @@ export function IntroPanel({ profile, ui }: IntroPanelProps) {
               <li key={contact.kind} className={styles.contact}>
                 <PixelIcon name={contactIcons[contact.kind]} size={16} className={styles.contactIcon} />
                 <span className="visually-hidden">{contact.label}: </span>
-                {contact.kind === "email" ? (
-                  <CopyEmail
-                    email={contact.value}
-                    copiedMessage={ui.contact.emailCopied}
-                    actionLabel={ui.contact.copyEmail}
-                    variant="link"
-                  />
-                ) : contact.href ? (
+                {contact.href ? (
                   <a
                     href={contact.href}
                     target={newTab ? "_blank" : undefined}

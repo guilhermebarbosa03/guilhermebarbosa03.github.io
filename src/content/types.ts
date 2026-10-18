@@ -149,7 +149,7 @@ export interface UiStrings {
   skills: { heading: string };
   experience: { heading: string; current: string; seeProject: string };
   education: { heading: string; coursework: string; certificates: string; expected: string };
-  contact: { heading: string; text: string; copyEmail: string; emailCopied: string };
+  contact: { heading: string; text: string };
 }
 
 export interface SiteMeta {

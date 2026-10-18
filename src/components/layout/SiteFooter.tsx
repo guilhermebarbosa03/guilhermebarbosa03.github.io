@@ -1,6 +1,5 @@
 import { GroundStrip } from "@/components/scene/GroundStrip";
 import { Panel } from "@/components/ui/Panel";
-import { CopyEmail } from "@/components/ui/CopyEmail";
 import { PixelButton } from "@/components/ui/PixelButton";
 import { PixelIcon } from "@/components/ui/PixelIcon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -34,12 +33,9 @@ export function SiteFooter({ profile, ui }: SiteFooterProps) {
           <ul role="list" className={styles.actions}>
             {email && (
               <li>
-                <CopyEmail
-                  email={email.value}
-                  copiedMessage={ui.contact.emailCopied}
-                  actionLabel={ui.contact.copyEmail}
-                  className={styles.button}
-                />
+                <PixelButton variant="primary" icon="mail" href={`mailto:${email.value}`} className={styles.button}>
+                  {email.value}
+                </PixelButton>
               </li>
             )}
             {github?.href && (
